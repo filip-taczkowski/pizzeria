@@ -60,7 +60,10 @@
       thisProduct.data = data;
 
       thisProduct.renderInMenu();
+      thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
 
       console.log('new Product:', thisProduct);
     }
@@ -82,6 +85,17 @@
 
     }
 
+    getElements(){
+      const thisProduct = this;
+
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+
+    }
+
     initAccordion(){
       const thisProduct = this;
 
@@ -89,7 +103,7 @@
       const trigger = thisProduct.element;
 
       /* START: click event listener to trigger */
-      trigger.addEventListener('click', function(event){
+      thisProduct.accordionTrigger.addEventListener('click', function(event){
 
         /* prevent default action for event */
         event.preventDefault();
@@ -115,6 +129,56 @@
         }
       /* END: click event listener to trigger */
       });
+    }
+
+    initOrderForm(){
+      const thisProduct = this;
+      console.log('Product method: initOrderForm');
+
+      thisProduct.form.addEventListener('submit', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+
+      for (let input of thisProduct.formInputs){
+        input.addEventListener('change', function(){
+          thisProduct.processOrder();
+        });
+      }
+
+      thisProduct.cartButton.addEventListener('click', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+    }
+
+    processOrder(){
+      const thisProduct = this;
+      console.log('Product method: processOrder');
+
+      const formData = utils.serializeFormToObject(thisProduct.form);
+
+      /* find price for selected product */
+      let price = thisProduct.data.price;
+
+      /* START LOOP for every paramID in product */
+      for (let paramId in thisProduct.data.params){
+        const param = utils.serializeFormToObject(paramId);
+        console.log('param: ', param);
+
+        /* START LOOP for every optionID in params */
+        for (let option in param.options){
+          console.log('option: ', option);
+
+        /* END LOOP for every optionID in params */
+        }
+
+
+      /* END LOOP for every paramID in product */
+      }
+
+
+
     }
   }
 
