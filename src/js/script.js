@@ -157,23 +157,29 @@
       console.log('Product method: processOrder');
 
       const formData = utils.serializeFormToObject(thisProduct.form);
-
-      /* find price for selected product */
       let price = thisProduct.data.price;
 
       /* START LOOP for every paramID in product */
       for (let paramId in thisProduct.data.params){
-        const param = utils.serializeFormToObject(paramId);
+        const param = thisProduct.data.params[paramId];
         console.log('param: ', param);
 
         /* START LOOP for every optionID in params */
-        for (let option in param.options){
-          console.log('option: ', option);
+        for (let optionId in param.options){
+          const option = param.options[optionId];
+          const isSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) != -1;
+
+          if (isSelected && !option.default){
+            price += option.price;
+            console.log('price: ', price);
+          } else if (!isSelected && option.default) {
+            price -= option.price;
+            console.log('price: ', price);
+          }
 
         /* END LOOP for every optionID in params */
         }
-
-
+        thisProduct.priceElem.innerHTML = price;
       /* END LOOP for every paramID in product */
       }
 
