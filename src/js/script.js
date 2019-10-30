@@ -112,7 +112,12 @@
         event.preventDefault();
 
         /* toggle active class on element of thisProduct */
-        trigger.classList.add('active');
+        if (trigger.classList.contains('active')){
+          trigger.classList.remove('active');
+        } else {
+          trigger.classList.add('active');
+        }
+
 
         /* find all active products */
         const activeProducts = document.querySelectorAll(select.all.menuProductsActive);
