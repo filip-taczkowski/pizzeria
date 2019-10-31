@@ -100,7 +100,7 @@
       thisProduct.initAmountWidget();
       thisProduct.processOrder();
 
-      console.log('new Product:', thisProduct);
+      //console.log('new Product:', thisProduct);
     }
 
     renderInMenu(){
@@ -175,7 +175,7 @@
 
     initOrderForm(){
       const thisProduct = this;
-      console.log('Product method: initOrderForm');
+      //console.log('Product method: initOrderForm');
 
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
@@ -196,7 +196,7 @@
 
     processOrder(){
       const thisProduct = this;
-      console.log('Product method: processOrder');
+      //console.log('Product method: processOrder');
 
       const formData = utils.serializeFormToObject(thisProduct.form);
       let price = thisProduct.data.price;
@@ -262,8 +262,8 @@
       thisWidget.setValue(thisWidget.value);
       thisWidget.initActions();
 
-      console.log('AmountWidget: ', thisWidget);
-      console.log('constructor argument: ', element);
+      //console.log('AmountWidget: ', thisWidget);
+      //console.log('constructor argument: ', element);
     }
 
     getElements(element){
@@ -322,11 +322,49 @@
     }
   }
 
+  class Cart{
+    constructor(element){
+      const thisCart = this;
+
+      thisCart.products = [];
+
+      thisCart.getElements(element);
+      thisCart.initActions();
+
+      console.log('new Cart: ', thisCart);
+    }
+
+    getElements(element){
+      const thisCart = this;
+
+      thisCart.dom ={};
+
+      thisCart.dom.wrapper = element;
+      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+
+    }
+
+    initActions() {
+      const thisCart = this;
+
+      thisCart.dom.toggleTrigger.addEventListener('click', function(){
+
+        if (thisCart.dom.wrapper.classList.contains(classNames.cart.wrapperActive)) {
+          thisCart.dom.wrapper.classList.remove(classNames.cart.wrapperActive);
+        } else {
+          thisCart.dom.wrapper.classList.add(classNames.cart.wrapperActive);
+        }
+
+      });
+
+    }
+  }
+
   const app = {
     initMenu: function(){
       const thisApp = this;
 
-      console.log('thisApp.data:', thisApp.data);
+      //console.log('thisApp.data:', thisApp.data);
 
       for(let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
@@ -339,16 +377,24 @@
       thisApp.data = dataSource;
     },
 
+    initCart: function(){
+      const thisApp = this;
+
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart(cartElem);
+    },
+
     init: function(){
       const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
+      //console.log('*** App starting ***');
+      //console.log('thisApp:', thisApp);
+      //console.log('classNames:', classNames);
+      //console.log('settings:', settings);
+      //console.log('templates:', templates);
 
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
 
     },
   };
