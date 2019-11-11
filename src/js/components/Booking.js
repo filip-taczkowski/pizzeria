@@ -30,7 +30,7 @@ class Booking {
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount, 1);
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount, 1);
 
-  }+
+  }
 }
 
 export default Booking;
