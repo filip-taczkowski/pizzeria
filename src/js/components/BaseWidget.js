@@ -16,7 +16,6 @@ class BaseWidget {
 
   set value(value){
     const thisWidget = this;
-
     const newValue = thisWidget.parseValue(value);
 
     /* TODO: Add validation */
