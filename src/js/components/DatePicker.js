@@ -18,8 +18,8 @@ class DatePicker extends BaseWidget{
     thisWidget.minDate = new Date(thisWidget.value);
     thisWidget.maxDate = new Date(utils.addDays(thisWidget.value , settings.datePicker.maxDaysInFuture));
 
-    // eslint-disable-next-line no-undef
-    flatpickr(thisWidget.dom.input, {
+    const flatpickrInstace = {
+      dateFormat: 'Y-m-d',
       defaultDate: thisWidget.minDate,
       minDate: thisWidget.minDate,
       maxDate: thisWidget.maxDate,
@@ -34,11 +34,14 @@ class DatePicker extends BaseWidget{
         }
       ],
 
-      onChange: function(dateStr){
+      onValueUpdate: function(selectedDates, dateStr){
         thisWidget.value = dateStr;
       }
 
-    });
+    };
+
+    // eslint-disable-next-line no-undef
+    flatpickr(thisWidget.dom.input, flatpickrInstace);
   }
 
   parseValue(value){

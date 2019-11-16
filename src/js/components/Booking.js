@@ -184,6 +184,8 @@ class Booking {
       }
 
     }
+
+    console.log('date: ', thisBooking.date);
   }
 }
 
