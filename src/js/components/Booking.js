@@ -12,7 +12,7 @@ class Booking {
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
-    thisBooking.initSelectTable();
+    thisBooking.initActions();
 
   }
 
@@ -30,6 +30,9 @@ class Booking {
     thisBooking.dom.datePicker = element.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = element.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = element.querySelectorAll(select.booking.tables);
+    thisBooking.dom.form = element.querySelector(select.booking.form);
+    thisBooking.dom.starters = element.querySelectorAll('.checkbox__checkmark');
+
   }
 
   initWidgets(){
@@ -186,24 +189,58 @@ class Booking {
       } else {
         table.classList.remove(classNames.booking.tableBooked);
       }
-
     }
-
-    console.log('date: ', thisBooking.date);
   }
 
-  initSelectTable(){
+  initActions(){
     const thisBooking = this;
 
     for (let table of thisBooking.dom.tables){
       table.addEventListener('click', () => {
-        if (!table.classList.contains('active') && !table.classList.contains('booked')){
-          table.classList.add(classNames.booking.active);
-        } else {
-          table.classList.remove(classNames.booking.active);
+        for (let tableToDeactivate of thisBooking.dom.tables){
+          tableToDeactivate.classList.remove('active');
         }
+
+        table.classList.toggle(
+          classNames.booking.active,
+          !table.classList.contains(classNames.booking.active) && !table.classList.contains('booked')
+        );
+
+        if (table.classList.contains(classNames.booking.active)){
+          thisBooking.tableToBook = table.getAttribute(settings.booking.tableIdAttribute);
+        }
+
+        console.log(thisBooking.tableToBook);
       });
     }
+
+
+
+    thisBooking.dom.form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      thisBooking.sendBooking();
+
+      console.log('submit clicked');
+    });
+  }
+
+  sendBooking(){
+    const thisBooking = this;
+
+    const url = settings.db.url + '/' + settings.db.booking;
+
+    const bookedTable = {
+      date: thisBooking.datePicker.value,
+      hour: thisBooking.hourPicker.value,
+      table: thisBooking.tableToBook,
+      duration: thisBooking.hoursAmount.value,
+      ppl: thisBooking.peopleAmount.value,
+
+      starters: [],
+    };
+
+    console.log('bookedTable', bookedTable);
   }
 }
 
