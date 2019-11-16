@@ -12,6 +12,7 @@ class Booking {
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
+    thisBooking.initSelectTable();
 
   }
 
@@ -41,8 +42,11 @@ class Booking {
 
     thisBooking.dom.wrapper.addEventListener('updated', () => {
       thisBooking.updateDOM();
-    });
 
+      for (let table of thisBooking.dom.tables){
+        table.classList.remove(classNames.booking.active);
+      }
+    });
   }
 
   getData(){
@@ -186,6 +190,20 @@ class Booking {
     }
 
     console.log('date: ', thisBooking.date);
+  }
+
+  initSelectTable(){
+    const thisBooking = this;
+
+    for (let table of thisBooking.dom.tables){
+      table.addEventListener('click', () => {
+        if (!table.classList.contains('active') && !table.classList.contains('booked')){
+          table.classList.add(classNames.booking.active);
+        } else {
+          table.classList.remove(classNames.booking.active);
+        }
+      });
+    }
   }
 }
 
