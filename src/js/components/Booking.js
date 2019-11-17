@@ -251,6 +251,14 @@ class Booking {
       starters: [],
     };
 
+    console.log(url, bookedTable);
+
+    for (let starter of thisBooking.dom.starters){
+      if (starter.checked == true) {
+        bookedTable.starters.push(starter.value);
+      }
+    }
+
     const options = {
       method: 'POST',
       headers: {
