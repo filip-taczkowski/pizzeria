@@ -31,7 +31,9 @@ class Booking {
     thisBooking.dom.hourPicker = element.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = element.querySelectorAll(select.booking.tables);
     thisBooking.dom.form = element.querySelector(select.booking.form);
-    thisBooking.dom.starters = element.querySelectorAll('.checkbox__checkmark');
+    thisBooking.dom.starters = element.querySelectorAll(select.booking.starters);
+    thisBooking.dom.phone = element.querySelector(select.booking.phone);
+    thisBooking.dom.address = element.querySelector(select.booking.address);
 
   }
 
@@ -45,11 +47,20 @@ class Booking {
 
     thisBooking.dom.wrapper.addEventListener('updated', () => {
       thisBooking.updateDOM();
+    });
 
+    thisBooking.dom.datePicker.addEventListener('updated', () => {
       for (let table of thisBooking.dom.tables){
         table.classList.remove(classNames.booking.active);
       }
     });
+
+    thisBooking.dom.hourPicker.addEventListener('updated', () => {
+      for (let table of thisBooking.dom.tables){
+        table.classList.remove(classNames.booking.active);
+      }
+    });
+
   }
 
   getData(){
@@ -185,6 +196,7 @@ class Booking {
         &&
         thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)
       ){
+        table.classList.remove(classNames.booking.active);
         table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
@@ -218,10 +230,7 @@ class Booking {
 
     thisBooking.dom.form.addEventListener('submit', (event) => {
       event.preventDefault();
-
       thisBooking.sendBooking();
-
-      console.log('submit clicked');
     });
   }
 
@@ -233,14 +242,32 @@ class Booking {
     const bookedTable = {
       date: thisBooking.datePicker.value,
       hour: thisBooking.hourPicker.value,
-      table: thisBooking.tableToBook,
+      table: parseInt(thisBooking.tableToBook),
       duration: thisBooking.hoursAmount.value,
       ppl: thisBooking.peopleAmount.value,
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
 
       starters: [],
     };
 
-    console.log('bookedTable', bookedTable);
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bookedTable),
+    };
+
+    fetch(url, options)
+      .then(response => {
+        return response.json();
+      }).then(parsedResponse => {
+        console.log('parsedResponse: ', parsedResponse);
+        thisBooking.getData();
+        thisBooking.updateDOM();
+      });
+
   }
 }
 
