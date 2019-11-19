@@ -1,0 +1,37 @@
+.main-page-wrapper {
+  background: $color-light;
+  font-family: $font-text;
+}
+
+.services {
+  display: flex;
+  justify-content: center;
+
+  a {
+    width: 300px;
+    height: 120px;
+    margin: 3px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+    }
+
+    p {
+      font-family: $font-header;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -70%);
+      top: 35%;
+      color: #FFF;
+      font-weight: 700;
+      letter-spacing: -0.65px;
+      font-size: 26px;
+    }
+
+  }
+
+}

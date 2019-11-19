@@ -221,8 +221,6 @@ class Booking {
         if (table.classList.contains(classNames.booking.active)){
           thisBooking.tableToBook = table.getAttribute(settings.booking.tableIdAttribute);
         }
-
-        console.log(thisBooking.tableToBook);
       });
     }
 
@@ -251,10 +249,8 @@ class Booking {
       starters: [],
     };
 
-    console.log(url, bookedTable);
-
     for (let starter of thisBooking.dom.starters){
-      if (starter.checked == true) {
+      if (starter.checked) {
         bookedTable.starters.push(starter.value);
       }
     }
@@ -275,7 +271,6 @@ class Booking {
         thisBooking.getData();
         thisBooking.updateDOM();
       });
-
   }
 }
 
