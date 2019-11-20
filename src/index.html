@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Pizzeria</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -21,7 +22,7 @@
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
         <div class="main-nav">
-          <a href="#main-page">Main</a>
+          <a href="#main-page">Home</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
         </div>
@@ -78,12 +79,49 @@
     <div class="services">
       <a href="#order">
         <img src="images/main-page/pizza-1.jpg">
-        <p>ORDER</p>
+        <p class="link-desc">ORDER</p>
       </a>
       <a href="#booking">
         <img src="images/main-page/pizza-2.jpg">
-        <p>BOOK A TABLE</p>
+        <p class="link-desc">BOOK A TABLE</p>
       </a>
+      <div class="opening-hours">
+        <h2>OPENING HOURS:</h2>
+        <h3>TUE-SUN, 12PM - 12AM</h3>
+      </div>
+    </div>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item" data-interval="3000">
+          <img src="images/main-page/pizza-3.jpg" alt="pizza-3" >
+            <div class="opinion">
+              <p class="opinion-title">AMAZING SERVICE!</p>
+              <p class="opinion-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam egestas viverra tortor, eu ullamcorper dui imperdiet nec. Nunc sed dolor at elit lobortis sodales.</p>
+              <p class="opinion-footer">– Margaret Osborne</p>
+          </div>
+        </div>
+        <div class="carousel-item" data-interval="3000">
+          <img src="images/main-page/pizza-4.jpg" alt="pizza-4">
+          <div class="opinion">
+              <p class="opinion-title">GREAT FOOD!</p>
+              <p class="opinion-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam egestas viverra tortor, eu ullamcorper dui imperdiet nec. Nunc sed dolor at elit lobortis sodales.</p>
+              <p class="opinion-footer">– Tom Smith</p>
+          </div>
+        </div>
+        <div class="carousel-item active" data-interval="3000">
+          <img src="images/main-page/pizza-5.jpg" alt="pizza-5">
+          <div class="opinion">
+              <p class="opinion-title">QUICK DELIVERY!</p>
+              <p class="opinion-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam egestas viverra tortor, eu ullamcorper dui imperdiet nec. Nunc sed dolor at elit lobortis sodales.</p>
+              <p class="opinion-footer">– Agatha Johnson</p>
+          </div>
+        </div>
+      </div>
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
     </div>
   </script>
 
@@ -260,6 +298,9 @@
     </article> <!-- .product -->
   </script>
 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="vendor/range-slider.min.js"></script>

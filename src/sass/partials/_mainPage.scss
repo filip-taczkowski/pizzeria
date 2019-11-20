@@ -1,13 +1,18 @@
 .main-page-wrapper {
   background: $color-light;
   font-family: $font-text;
+  margin-top: 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
+/* Services */
 .services {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
 
   a {
+    flex-grow: 1;
     width: 300px;
     height: 120px;
     margin: 3px;
@@ -15,16 +20,23 @@
     overflow: hidden;
     position: relative;
 
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:nth-child(2) {
+      margin-right: 0;
+    }
+
     img {
       width: 100%;
     }
 
-    p {
+    .link-desc {
       font-family: $font-header;
       position: absolute;
       left: 50%;
-      top: 50%;
-      transform: translate(-50%, -70%);
+      transform: translate(-50%, -10%);
       top: 35%;
       color: #FFF;
       font-weight: 700;
@@ -34,4 +46,93 @@
 
   }
 
+  .opening-hours {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: $color-main;
+    margin-top: 3px;
+    width: 100%;
+    border-radius: 4px;
+    text-align: center;
+    color: #FFF;
+    height: 120px;
+  }
+
+  h2 {
+    font-family: $font-header;
+    font-size: 26px;
+    letter-spacing: -0.65px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+}
+
+/* Carousel */
+
+.carousel {
+  margin: 100px 0;
+
+  img {
+    width: 195px;
+    height: 195px;
+    border-radius: 4px;
+  }
+
+  li {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #cdcdcd;
+    margin: 8px;
+
+    &.active {
+      background-color: #333333;
+    }
+  }
+
+  .carousel-item{
+    padding-bottom: 30px;
+
+    &.active {
+      display: flex;
+    }
+
+    .opinion {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 40px;
+      color: $color-dark;
+      font-size: 14px;
+      line-height: 23px;
+
+      .opinion-title {
+        font-weight: 700;
+      }
+
+      .opinion-footer {
+        font-style: italic;
+      }
+    }
+  }
+
+  .carousel-item-left {
+    display: flex;
+  }
+
+  .carousel-item-right {
+    display: flex;
+  }
+
+  .carousel-indicators {
+    transform: translate(0, 100%);
+  }
 }
