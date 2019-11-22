@@ -53,12 +53,14 @@ class Booking {
       for (let table of thisBooking.dom.tables){
         table.classList.remove(classNames.booking.active);
       }
+      thisBooking.tableToBook = [];
     });
 
     thisBooking.dom.hourPicker.addEventListener('updated', () => {
       for (let table of thisBooking.dom.tables){
         table.classList.remove(classNames.booking.active);
       }
+      thisBooking.tableToBook = [];
     });
 
   }
@@ -207,11 +209,14 @@ class Booking {
   initActions(){
     const thisBooking = this;
 
+    thisBooking.tableToBook = [];
+
     for (let table of thisBooking.dom.tables){
       table.addEventListener('click', () => {
-        for (let tableToDeactivate of thisBooking.dom.tables){
-          tableToDeactivate.classList.remove('active');
-        }
+        //for (let tableToDeactivate of thisBooking.dom.tables){
+        //  tableToDeactivate.classList.remove('active');
+        //}
+        const tableId = parseInt(table.getAttribute(settings.booking.tableIdAttribute));
 
         table.classList.toggle(
           classNames.booking.active,
@@ -219,8 +224,12 @@ class Booking {
         );
 
         if (table.classList.contains(classNames.booking.active)){
-          thisBooking.tableToBook = table.getAttribute(settings.booking.tableIdAttribute);
+          thisBooking.tableToBook.push(tableId);
+        } else if ( thisBooking.tableToBook.indexOf(tableId) != -1 ) {
+          thisBooking.tableToBook.splice(thisBooking.tableToBook.indexOf(tableId), 1);
         }
+
+        console.log(thisBooking.tableToBook);
       });
     }
 
@@ -237,40 +246,42 @@ class Booking {
 
     const url = settings.db.url + '/' + settings.db.booking;
 
-    const bookedTable = {
-      date: thisBooking.datePicker.value,
-      hour: thisBooking.hourPicker.value,
-      table: parseInt(thisBooking.tableToBook),
-      duration: thisBooking.hoursAmount.value,
-      ppl: thisBooking.peopleAmount.value,
-      phone: thisBooking.dom.phone.value,
-      address: thisBooking.dom.address.value,
+    for (let table of thisBooking.tableToBook ){
+      const bookedTable = {
+        date: thisBooking.datePicker.value,
+        hour: thisBooking.hourPicker.value,
+        table: table,
+        duration: thisBooking.hoursAmount.value,
+        ppl: thisBooking.peopleAmount.value,
+        phone: thisBooking.dom.phone.value,
+        address: thisBooking.dom.address.value,
 
-      starters: [],
-    };
+        starters: [],
+      };
 
-    for (let starter of thisBooking.dom.starters){
-      if (starter.checked) {
-        bookedTable.starters.push(starter.value);
+      for (let starter of thisBooking.dom.starters){
+        if (starter.checked) {
+          bookedTable.starters.push(starter.value);
+        }
       }
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookedTable),
+      };
+
+      fetch(url, options)
+        .then(response => {
+          return response.json();
+        }).then(parsedResponse => {
+          console.log('parsedResponse: ', parsedResponse);
+          thisBooking.getData();
+          thisBooking.updateDOM();
+        });
     }
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bookedTable),
-    };
-
-    fetch(url, options)
-      .then(response => {
-        return response.json();
-      }).then(parsedResponse => {
-        console.log('parsedResponse: ', parsedResponse);
-        thisBooking.getData();
-        thisBooking.updateDOM();
-      });
   }
 }
 
